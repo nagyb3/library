@@ -33,8 +33,16 @@ function handleSubmit(event) {
     const pages = data.get('pages');
 
     addBookToLibrary(name, author, pages);
+    form.setAttribute('hidden', "");
 }
 
 const form = document.querySelector('form');
 
 form.addEventListener('submit', handleSubmit);
+
+const newBookButton = document.querySelector('.new-book-button');
+
+
+newBookButton.addEventListener('click', () => {
+    form.removeAttribute('hidden');
+})
