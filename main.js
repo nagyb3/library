@@ -20,6 +20,7 @@ let statusCheckbox;
 let alreadyReadPara = document.createElement('p');
 alreadyReadPara.textContent = 'Already read it?';
 alreadyReadPara.style.display = 'inline';
+let deleteButton;
 
 function addBookToLibrary(name, author, pages, alreadyRead) {
     myLibrary.push(new Book(name, author, pages, alreadyRead));
@@ -31,6 +32,19 @@ function addBookToLibrary(name, author, pages, alreadyRead) {
         para = document.createElement('p');
         para.textContent = `Title: ${myLibrary[i].name}`;
         newElement.append(para);
+        
+        deleteButton = document.createElement('button');
+        deleteButton.textContent = 'x';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', () => {
+            myLibrary.pop(i);
+            let elementToDelete = document.querySelector(`.books > :nth-child(${i + 1})`);
+            // console.log(elementToDelete);
+            elementToDelete.remove();
+        })
+        newElement.append(deleteButton);
+
+
 
         para2 = document.createElement('p');
         para2.textContent = `Author: ${myLibrary[i].author}`;
@@ -84,9 +98,5 @@ newBookButton.addEventListener('click', () => {
 
 
 Book.prototype.toogleStatus = function()  {
-    if (this.alreadyRead === true) {
-        this.alreadyRead = false;
-    } else {
-        this.alreadyRead = true;
-    }
+    this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
 }
