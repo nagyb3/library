@@ -1,30 +1,30 @@
 let myLibrary = [];
 
-function Book(name, author, pages) {
+function Book(name, author, pages, alreadyRead) {
     this.name = name;
     this.author = author;
     this.pages = pages;
+    if (alreadyRead === 'on') {
+        this.alreadyRead = true;
+    } else if (alreadyRead === null) {
+        this.alreadyRead = false;
+    }
+
 }
 const area = document.querySelector('.books');
 
-let para; let para2; let para3;
+let para;
+let para2;
+let para3;
+let statusCheckbox;
+let alreadyReadPara = document.createElement('p');
+alreadyReadPara.textContent = 'Already read it?';
+alreadyReadPara.style.display = 'inline';
 
-function addBookToLibrary(name, author, pages) {
-    myLibrary.push(new Book(name, author, pages));
+function addBookToLibrary(name, author, pages, alreadyRead) {
+    myLibrary.push(new Book(name, author, pages, alreadyRead));
     let newElement;
     area.textContent = null;
-    // for (let i = 0; i < myLibrary.length; i++) {
-    //     newElement = document.createElement('div');
-    //     authorP = document.createElement('p');
-    //     authorP.textContent = `Author: ${myLibrary[i].author}`;
-    //     // titleP.textContent = `Title: ${myLibrary[i].title}`;
-    //     // pagesP.textContent = `Pages: ${myLibrary[i].pages}`;
-    //     // newElement.innerText = `${myLibrary[i].name} ${myLibrary[i].author} ${myLibrary[i].pages}\n`
-    //     newElement.appendChild(titleP);
-    //     newElement.appendChild(authorP);
-    //     // newElement.appendChild(pagesP);
-    //     area.appendChild(newElement);
-    // }
     for (let i = 0; i < myLibrary.length; i++) {
         newElement = document.createElement('div');
         newElement.classList.add('card');
@@ -40,12 +40,21 @@ function addBookToLibrary(name, author, pages) {
         para3.textContent = `Number of pages: ${myLibrary[i].pages}`;
         newElement.append(para3);
 
+        statusCheckbox = document.createElement('input');
+        statusCheckbox.setAttribute('type', 'checkbox')
+        if (myLibrary[i].alreadyRead === true) {
+            statusCheckbox.setAttribute('checked', '');
+        }
+        statusCheckbox.classList.add('card-checkbox');
+        statusCheckbox.addEventListener('click', () => {
+            myLibrary[i].toogleStatus();
+        })
+        newElement.append(alreadyReadPara);
+        newElement.append(statusCheckbox);
+
         area.append(newElement);
     }
 }
-//
-// addBookToLibrary('firstName', 'firstAuthor', 1);
-// addBookToLibrary('secondName', 'secondAuthor', 2);
 
 function handleSubmit(event) {
     event.preventDefault();
@@ -55,8 +64,9 @@ function handleSubmit(event) {
     const name = data.get('name');
     const author = data.get('author');
     const pages = data.get('pages');
+    const alreadyRead = data.get('alreadyRead');
 
-    addBookToLibrary(name, author, pages);
+    addBookToLibrary(name, author, pages, alreadyRead);
     form.setAttribute('hidden', "");
     form.reset();
 }
@@ -71,3 +81,12 @@ const newBookButton = document.querySelector('.new-book-button');
 newBookButton.addEventListener('click', () => {
     form.removeAttribute('hidden');
 })
+
+
+Book.prototype.toogleStatus = function()  {
+    if (this.alreadyRead === true) {
+        this.alreadyRead = false;
+    } else {
+        this.alreadyRead = true;
+    }
+}
