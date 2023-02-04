@@ -1,16 +1,36 @@
 let myLibrary = [];
 
-function Book(name, author, pages, alreadyRead) {
-    this.name = name;
-    this.author = author;
-    this.pages = pages;
-    if (alreadyRead === 'on') {
-        this.alreadyRead = true;
-    } else if (alreadyRead === null) {
-        this.alreadyRead = false;
+// function Book(name, author, pages, alreadyRead) {
+//     this.name = name;
+//     this.author = author;
+//     this.pages = pages;
+//     if (alreadyRead === 'on') {
+//         this.alreadyRead = true;
+//     } else if (alreadyRead === null) {
+//         this.alreadyRead = false;
+//     }
+//
+// }
+class Book {
+    constructor(name, author, pages, alreadyRead) {
+        this.name = name;
+        this.author = author;
+        this.pages = pages;
+        if (alreadyRead === 'on') {
+            this.alreadyRead = true;
+        } else if (alreadyRead === null) {
+            this.alreadyRead = false;
+        }
     }
-
+    toggleStatus() {
+        this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
+    }
 }
+
+// Book.prototype.toogleStatus = function()  {
+//     this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
+// }
+
 const area = document.querySelector('.books');
 
 let para;
@@ -32,7 +52,7 @@ function addBookToLibrary(name, author, pages, alreadyRead) {
         para = document.createElement('p');
         para.textContent = `Title: ${myLibrary[i].name}`;
         newElement.append(para);
-        
+        newElement.append(para);
         deleteButton = document.createElement('button');
         deleteButton.textContent = 'x';
         deleteButton.classList.add('delete-button');
@@ -97,6 +117,6 @@ newBookButton.addEventListener('click', () => {
 })
 
 
-Book.prototype.toogleStatus = function()  {
-    this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
-}
+// Book.prototype.toogleStatus = function()  {
+//     this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
+// }
