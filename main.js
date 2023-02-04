@@ -11,6 +11,10 @@ let myLibrary = [];
 //     }
 //
 // }
+
+// Book.prototype.toogleStatus = function()  {
+//     this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
+// }
 class Book {
     constructor(name, author, pages, alreadyRead) {
         this.name = name;
@@ -26,10 +30,6 @@ class Book {
         this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
     }
 }
-
-// Book.prototype.toogleStatus = function()  {
-//     this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
-// }
 
 const area = document.querySelector('.books');
 
@@ -81,7 +81,7 @@ function addBookToLibrary(name, author, pages, alreadyRead) {
         }
         statusCheckbox.classList.add('card-checkbox');
         statusCheckbox.addEventListener('click', () => {
-            myLibrary[i].toogleStatus();
+            myLibrary[i].toggleStatus();
         })
         newElement.append(alreadyReadPara);
         newElement.append(statusCheckbox);
@@ -115,8 +115,3 @@ const newBookButton = document.querySelector('.new-book-button');
 newBookButton.addEventListener('click', () => {
     form.removeAttribute('hidden');
 })
-
-
-// Book.prototype.toogleStatus = function()  {
-//     this.alreadyRead ? this.alreadyRead = false : this.alreadyRead = true;
-// }
