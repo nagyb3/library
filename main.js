@@ -37,9 +37,7 @@ let para;
 let para2;
 let para3;
 let statusCheckbox;
-let alreadyReadPara = document.createElement('p');
-alreadyReadPara.textContent = 'Already read it?';
-alreadyReadPara.style.display = 'inline';
+let alreadyReadPara;
 let deleteButton;
 
 function addBookToLibrary(name, author, pages, alreadyRead) {
@@ -51,15 +49,16 @@ function addBookToLibrary(name, author, pages, alreadyRead) {
         newElement.classList.add('card');
         para = document.createElement('p');
         para.textContent = `Title: ${myLibrary[i].name}`;
+        para.style.display = 'inline';
         newElement.append(para);
         newElement.append(para);
         deleteButton = document.createElement('button');
         deleteButton.textContent = 'x';
         deleteButton.classList.add('delete-button');
+        deleteButton.style.float = 'right';
         deleteButton.addEventListener('click', () => {
             myLibrary.pop(i);
             let elementToDelete = document.querySelector(`.books > :nth-child(${i + 1})`);
-            // console.log(elementToDelete);
             elementToDelete.remove();
         })
         newElement.append(deleteButton);
@@ -83,6 +82,9 @@ function addBookToLibrary(name, author, pages, alreadyRead) {
         statusCheckbox.addEventListener('click', () => {
             myLibrary[i].toggleStatus();
         })
+        alreadyReadPara = document.createElement('p');
+        alreadyReadPara.textContent = 'Already read it?';
+        alreadyReadPara.style.display = 'inline';
         newElement.append(alreadyReadPara);
         newElement.append(statusCheckbox);
 
